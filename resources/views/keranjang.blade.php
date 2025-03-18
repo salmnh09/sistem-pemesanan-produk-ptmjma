@@ -6,12 +6,17 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Keranjang Belanja</div>
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
                 <div class="panel-body">
                     
                        
                         <div class="container mt-4">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-12">
                                     <form action="{{ route('cart.update') }}" method="POST">
                                         @csrf
                                     <table class="table table-bordered">
@@ -28,7 +33,7 @@
                                             <tr>
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ number_format($item->price, 0, ',', '.') }}</td>
-                                                <td><input type="number" name="qty[{{ $item->id }}]" value="{{ $item->qty }}" min="1" class="form-control"></td>
+                                                <td><input type="number" name="qty[{{ $item->id }}]" value="{{ $item->quantity }}" min="1" class="form-control"></td>
                                                 <td>{{ number_format($item->getPriceSum(), 0, ',', '.') }}</td>
                                             </tr>
                                         @endforeach

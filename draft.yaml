@@ -9,7 +9,7 @@ models:
     stok: int
     gambar: string
   order:
-    id_order: int
+    id_user: foreign user
     total_jumlah: int
     total_harga: int
   order_detail:
