@@ -36,6 +36,7 @@ class CartController extends Controller
 
         return redirect()->route('checkout.success')->with('success', 'Pesanan berhasil dibuat!');
     }
+
     function CartUpdate(){
         
     }
