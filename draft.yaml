@@ -1,0 +1,22 @@
+models:
+  kategori:
+    nama_kategori: string
+  produk:
+    kategori_id: foreign kategori
+    nama_produk: string
+    deskripsi: longtext
+    harga: int
+    stok: int
+    gambar: string
+  order:
+    id_order: int
+    total_jumlah: int
+    total_harga: int
+  order_detail:
+    id_order: foreign order
+    id_produk: foreign produk
+    jumlah: int
+    harga: int
+
+controllers:
+  # ...
