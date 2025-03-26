@@ -1,8 +1,8 @@
-<footer id="footer" class="footer">
+<footer id="footer" class="footer"style="margin-top: 100px">
 
 
 
-<div class="container footer-top">
+<div class="container footer-top" >
   <div class="row gy-4">
     <div class="col-lg-4 col-md-6 footer-about">
       <a href="index.html" class="d-flex align-items-center">

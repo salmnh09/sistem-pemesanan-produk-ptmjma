@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Kategori;
-use App\Models\produk;
+use App\Models\Produk;
 
 class ProdukFactory extends Factory
 {
@@ -25,8 +25,8 @@ class ProdukFactory extends Factory
             'kategori_id' => Kategori::factory(),
             'nama_produk' => fake()->word(),
             'deskripsi' => fake()->text(),
-            'harga' => fake()->word(),
-            'stok' => fake()->word(),
+            'harga' => fake()->numberBetween(-10000, 10000),
+            'stok' => fake()->numberBetween(-10000, 10000),
             'gambar' => fake()->word(),
         ];
     }

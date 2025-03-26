@@ -7,6 +7,7 @@ use App\Models\OrderDetail;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -19,11 +20,11 @@ class CartController extends Controller
     {
         $product = Produk::find($id);
         $cart=Cart::add(
-            [ 
+            [
                 'id' => $product->id,
             'name' => $product->nama_produk,
             'price' => $product->harga,
-            'quantity' => 1 
+            'quantity' => 1
             ]
         );
         return redirect('cart');
@@ -31,28 +32,24 @@ class CartController extends Controller
     }
     public function checkout(Request $request)
     {
-        
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'alamat' => 'required|string',
-            'nomor_hp' => 'required|string|min:10|max:15',
-        ]);
+        if (!Auth::check()) {
+            return redirect()->route('pelanggan.login')->with('error', 'Anda harus login terlebih dahulu untuk checkout.');
+        }
 
-        // Simpan data pemesan dan pesanan ke database (contoh sederhana)
+
+        // // Simpan data pemesan dan pesanan ke database (contoh sederhana)
         $order = [
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'nomor_hp' => $request->nomor_hp,
+            'user_id' => Auth::user()->id, // Pastikan form mengirim no_hp (bukan nomor_hp)
             'total_harga' => Cart::getTotal(),
         ];
-        dd($order);
-        dd(Cart::getContent());
-        // Simpan order ke database (sesuaikan dengan model Order jika ada)
-        Order::create($order);
+        // dd($order);
+        // dd(Cart::getContent());
+        // // Simpan order ke database (sesuaikan dengan model Order jika ada)
+      $beli=Order::create($order);
         foreach (Cart::getContent() as $item) {
             OrderDetail::create([
-                'id_order' => $order->id,  // Menghubungkan order dengan detailnya
-                'id_produk' => $item->id,  // Asumsikan ID produk dari cart sesuai dengan produk di DB
+                'order_id' => $beli->id,  // Menghubungkan order dengan detailnya
+                'produk_id' => $item->id,  // Asumsikan ID produk dari cart sesuai dengan produk di DB
                 'jumlah' => $item->quantity,
                 'harga' => $item->price,
             ]);

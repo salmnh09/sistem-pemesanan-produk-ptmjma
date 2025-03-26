@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('produks', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_id')->constrained();
-            $table->string('nama_produk');
-            $table->longText('deskripsi');
-            $table->string('harga');
-            $table->string('stok');
-            $table->string('gambar');
+            $table->foreignId('user_id')->constrained();
+            $table->integer('total_harga');
+            $table->enum('status', ["pending","diproses","dikirim","selesai","komplain"])->default('pending');
             $table->timestamps();
         });
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produks');
+        Schema::dropIfExists('orders');
     }
 };

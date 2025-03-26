@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('id_order');
-            $table->string('total_jumlah');
-            $table->string('total_harga');
+            $table->foreignId('order_id')->constrained();
+            $table->foreignId('produk_id')->constrained();
+            $table->string('jumlah');
+            $table->string('harga');
             $table->timestamps();
         });
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_details');
     }
 };

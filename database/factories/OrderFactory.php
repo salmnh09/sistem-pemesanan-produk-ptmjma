@@ -4,7 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\order;
+use App\Models\Order;
+use App\Models\User;
 
 class OrderFactory extends Factory
 {
@@ -21,9 +22,9 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_order' => fake()->word(),
-            'total_jumlah' => fake()->word(),
-            'total_harga' => fake()->word(),
+            'user_id' => User::factory(),
+            'total_harga' => fake()->numberBetween(-10000, 10000),
+            'status' => fake()->randomElement(["pending","diproses","dikirim","selesai","komplain"]),
         ];
     }
 }

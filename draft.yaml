@@ -1,22 +1,22 @@
 models:
-  kategori:
+  Kategori:
     nama_kategori: string
-  produk:
+  Produk:
     kategori_id: foreign kategori
     nama_produk: string
     deskripsi: longtext
-    harga: int
-    stok: int
+    harga: integer
+    stok: integer
     gambar: string
-  order:
-    id_user: foreign user
-    total_jumlah: int
-    total_harga: int
-  order_detail:
-    id_order: foreign order
-    id_produk: foreign produk
+  Order:
+    user_id: foreign user
+    total_harga: integer
+    status: enum:pending,diproses,dikirim,selesai,komplain default:pending
+  Order_detail:
+    order_id: foreign order
+    produk_id: foreign produk
     jumlah: int
     harga: int
-
+seeders:  Produk,Kategori
 controllers:
   # ...

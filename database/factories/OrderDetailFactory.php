@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\IdOrder;
-use App\Models\IdProduk;
-use App\Models\order_detail;
+use App\Models\Order;
+use App\Models\Order_detail;
+use App\Models\Produk;
 
 class OrderDetailFactory extends Factory
 {
@@ -23,8 +23,8 @@ class OrderDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_order' => IdOrder::factory(),
-            'id_produk' => IdProduk::factory(),
+            'order_id' => Order::factory(),
+            'produk_id' => Produk::factory(),
             'jumlah' => fake()->word(),
             'harga' => fake()->word(),
         ];

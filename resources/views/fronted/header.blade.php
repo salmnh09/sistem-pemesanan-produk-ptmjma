@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Arsha Bootstrap Template</title>
+  <title>PT Mitra Jaya Makmur Abadi</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -26,7 +26,7 @@
 
   <!-- Main CSS File -->
   <link href="{{ asset('arsa/assets/css/main.css') }}" rel="stylesheet">
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="index-page">
@@ -45,12 +45,19 @@
           <li><a href="{{ route('beranda') }}" class="active">Home</a></li>
           <li><a href="#about">tentang kami</a></li>
           <li><a href="#services">produk</a></li>
+          <li><a href="{{ route('cart.index') }}">keranjang</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="{{route('pelanggan.login')}}">Login</a></li>
+          @auth
+            <li><a href="{{ route('pelanggan.profil') }}">Akun Saya</a></li>
+            <li><a href="{{ route('logout') }}">Logout</a></li>
+          @endauth
+
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-     
+
 
     </div>
   </header>

@@ -12,8 +12,8 @@
                 </div>
             @endif
                 <div class="panel-body">
-                    
-                       
+
+
                         <div class="container mt-4">
                             <div class="row">
                                 <div class="col-md-12">
@@ -33,43 +33,46 @@
                                             <tr>
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ number_format($item->price, 0, ',', '.') }}</td>
-                                                <td><input type="number" name="qty[{{ $item->id }}]" value="{{ $item->quantity }}" min="1" class="form-control"></td>
-                                                <td>{{ number_format($item->getPriceSum(), 0, ',', '.') }}</td>
+                                                <td><input type="number" name="qty[{{ $item->id }}]" value="{{ $item->quantity }}" min="1" class="form-control qty"></td>
+                                                <td class="price">{{ number_format($item->getPriceSum(), 0, ',', '.') }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
                                     </form>
                                     <p class="fw-bold">Total: Rp {{ number_format(Cart::getTotal(), 0, ',', '.') }}</p>
+
+                                    <a href="{{ route('cart.checkout') }}" class="btn btn-primary">chekout</a>
                                 </div>
-                                <form action="{{ route('checkout') }}" method="POST">
-                                    @csrf
-                                <div class="col-md-4">
-                                    <div class="card p-3">
-                                        <h4 class="mb-3">Data Pemesan</h4>
-                                        <div class="mb-3">
-                                            <label for="nama" class="form-label">Nama</label>
-                                            <input type="text" name="nama" id="nama" class="form-control" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="alamat" class="form-label">Alamat</label>
-                                            <textarea name="alamat" id="alamat" class="form-control" rows="3" required></textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="nomor_hp" class="form-label">Nomor HP</label>
-                                            <input type="text" name="nomor_hp" id="nomor_hp" class="form-control" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100">Checkout</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    
-                   
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $(".qty").on('input', function() {
+            let grandTotal = 0;
+console.log('hasilnya : ',$(".qty").val());
+
+            $("tbody tr").each(function() {
+                let row = $(this);
+                let price = parseInt(row.find(".price").text().replace(/\D/g, '')) || 0;
+                let qty = parseInt(row.find(".qty").val()) || 1;
+                let subtotal = price * qty;
+
+                row.find(".subtotal").text(subtotal.toLocaleString('id-ID'));
+                grandTotal += subtotal;
+            });
+
+            $("#grand-total").text(grandTotal.toLocaleString('id-ID'));
+        });
+    });
+</script>
 @endsection
+
+
+
